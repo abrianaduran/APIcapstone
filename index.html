@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cryptocurrency</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+        <link href="index.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header>
+            <h1>Cryptocurrency</h1>
+            <!--Search bar here-->
+            <form id="js-form">
+                <label for="cryptocurrency">Please Enter Ticker Symbol, all caps</label>
+                <input type="text" name="cryptocurrency" id="js-symbol" required>
+    
+                <label for="max-results">Maximum results to return</label>
+                <input type="number" name="max-results" id="js-max-results" value="10">
+    
+                <input type="submit" value="Go!">
+            </form>
+        </header>
+        <section id="js-error-message"></section>
+        <section id="start">
+            <ul id="start-results"></ul>
+        </section>
+        
+        <section id="search-results"></section>
+        <main>
+            <div class="price-results"></div>
+            <Section id="js-list-results">
+                <div class="exchanges">
+                    <ul id="exchanges-results"></ul>
+                </div>
+                <div class="quote-form">
+                    
+                </div>
+                <div class="quotes">
+                    <ul id="quote-currency-results"></ul>
+                    <ul id="quote-search-results"></ul>
+                </div>
+                <div class="news">
+                    <ul id="news-results"></ul>
+                </div>
+            </Section>
+        </main> 
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
