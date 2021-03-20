@@ -27,7 +27,7 @@ function generateConversionResults(responseJson, price){
 }
 function generateMarketsAndQuotes(responseJson, maxResults){
     $('#markets-quotes-results').empty();
-    $('#markets-quotes-results').append(`<h2>Markets and Their Quote Currencies</h2>`);
+    $('#markets-quotes-results').append(`<h2>Markets Selling This Coin and Their Quote Currencies</h2>`);
     for(let i = 0; i < responseJson.length & i < maxResults; i++){
         $('#markets-quotes-results').append(
             `<li><h3>${responseJson[i].name}: ${responseJson[i].quote}</h3></li>`);
