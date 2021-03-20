@@ -12,39 +12,35 @@
             <h1>Cryptocurrency</h1>
             <!--Search bar here-->
             <form id="js-form">
-                <label for="cryptocurrency">Please Enter Ticker Symbol, all caps</label>
-                <input type="text" name="cryptocurrency" id="js-symbol" required>
+                <label for="cryptocurrency">Please Enter One Ticker Symbol, all caps</label>
+                <input type="text" name="cryptocurrency" id="js-symbol" placeholder="BTC"required>
     
                 <label for="max-results">Maximum results to return</label>
-                <input type="number" name="max-results" id="js-max-results" value="10">
+                <input type="number" name="max-results" id="js-max-results" value="10" min="10" max="50">
     
                 <input type="submit" value="Go!">
             </form>
         </header>
+        <div class=""></div>
         <section id="js-error-message"></section>
         <section id="start">
             <ul id="start-results"></ul>
         </section>
         
-        <section id="search-results"></section>
-        <main>
-            <div class="price-results"></div>
-            <Section id="js-list-results">
-                <div class="exchanges">
-                    <ul id="exchanges-results"></ul>
-                </div>
-                <div class="quote-form">
-                    
-                </div>
-                <div class="quotes">
-                    <ul id="quote-currency-results"></ul>
-                    <ul id="quote-search-results"></ul>
-                </div>
-                <div class="news">
-                    <ul id="news-results"></ul>
-                </div>
-            </Section>
-        </main> 
+        <p>Example Ticker Symbols: ADA ATOM AVAX BCH BNB BTC CTC DOGE</p>
+        <section id="search-results" class="hidden">
+            <main>
+                    <div class="price-results"></div>
+                <Section id="js-list-results">
+                    <div class="conversion">
+                        <ul id="conversion-results"></ul>
+                    </div>
+                    <div class="markets-and-quotes">
+                        <ul id="markets-quotes-results"></ul>
+                    </div>
+                </Section>
+            </main> 
+        </section>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
         <script src="index.js"></script>

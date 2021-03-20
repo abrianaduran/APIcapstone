@@ -1,108 +1,52 @@
 
 'use strict';
 
-const key = "1fe0530e72fd42ee9441e316ed247ec2";
 var matchFound = false;
 
-/*var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0');
-var yyyy = today.getFullYear();
-
-const todaysDate = yyyy + '-' + mm + "-" + dd;*/
-
 //---------------------------
-//Generate functions
-function generateNewsResults(responseJson, maxResults){
-    console.log('generateNewsResults');
-    //show articles pertaining to searched coin
-    console.log(responseJson);
-    $('#news-results').empty();
-    for (let i = 0; i < responseJson.articles.length & i < maxResults; i++){
-        $('#news-results').append(
-            `<li><h3><a href="${responseJson.articles[i].url}">${responseJson.articles[i].title}</a></h3>
-            <p>${responseJson.articles[i].description}</p>
-            <p>By ${responseJson.articles[i].author}</p>
-            </li>`
-        )};
-    //(add to bottom of results or reload?)
-}
-function generatePriceResults(price){
-    //finished
-    console.log('generatePriceResults');
-    //current price in USDT
+//generate functions
+function generateCoinResults(price, cryptoName){
     $('.price-results').empty();
+    $('.price-results').append(`<h2>The current price of ${cryptoName} is: ${price} USD</h2>`);
+}
+function generateConversionResults(responseJson, price){
+    $('#conversion-results').empty();
+    $('#conversion-results').append(`<h2>Price in Other Currencies</h2>`)
 
-    $('.price-results').append(`<p>The current price is: ${price} USD</p>`)
+    const rates = responseJson.conversion_rates
+
+    for (const [key, value] of Object.entries(rates)) {
+        //8 major currencies
+        //CAD EUR GBP CHF NZD AUD JPY
+        if (key === 'CAD' || key === 'EUR' || key === 'GBP' || key === 'CHF' || key === 'NZD' || key === 'AUD' || key === 'JPY'){
+        $('#conversion-results').append(
+            `<li><h3>${value * price} ${key}</h3><li>`
+        )};
+    };
+   
 }
-function generateExchangesResults(responseJson){
-    //finished
-    console.log('generateExchangesResults');
-    //applicable exchanges
-    $('#exchanges-results').empty();
-    $('#exchanges-results').append('Exchanges Trading This Coin');
-    //set default is 10
-    for(let i = 0; i < responseJson.length & i < 10; i++){
-        $('#exchanges-results').append(
-        `<li><h3>${responseJson[i].name}</h3></li>`
-        );
-    }
-}
-//-------------------
-function generateQuoteCurrencies(responseJson){
-    //finished
-    console.log('generateQuoteResults');
-    //Quote Currencies
-    $('#quote-currency-results').empty();
-    for(let i = 0; i < responseJson.length & i < 10; i++){
-        $('#quote-currency-results').append(
+function generateMarketsAndQuotes(responseJson, maxResults){
+    $('#markets-quotes-results').empty();
+    $('#markets-quotes-results').append(`<h2>Markets and Their Quote Currencies</h2>`);
+    for(let i = 0; i < responseJson.length & i < maxResults; i++){
+        $('#markets-quotes-results').append(
             `<li><h3>${responseJson[i].name}: ${responseJson[i].quote}</h3></li>`);
     }
 }
-
 //---------------------------
-//GET FUNCTIONS   
-function getNews(searchTerm, maxResults){
-    //finished, but API doesn't like this IP
-    console.log('getNews');
-    const newsURL = 'https://newsapi.org/v2/everything?'
-    
-    const params = {
-        q: searchTerm,
-        apiKey: key
-    };
-    const queryString = formatQueryParams(params);
-    const url = newsURL + queryString;
-    fetch(url)
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error(response.statusText);
-    })
-    .then(responseJson => generateNewsResults(responseJson, maxResults))
-    .catch(err => {
-        $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-}
-function getCurrentPrice(cryptocurrency){
-    //finished
-    console.log('getCurrentPrice');
-    //Tickers(all coins) endpoint
-    //https://api.coinlore.net/api/tickers/?start=0&limit=100
-    
+
+function getCoin(cryptocurrency, maxResults){
     const pricesURL =  'https://api.coinlore.net/api/tickers/?'
-    //i < 5000
-    for (let i = 0; i < 200 & matchFound === false; i += 100){
-        console.log(matchFound);
+
+    for (let i = 0; i < 5000 & matchFound === false; i += 100){
         
     const params = {
         start: i,
         limit: 100
     };
+
     const queryString = formatQueryParams(params);
     const url = pricesURL + queryString;
-    console.log(url);
 
     fetch(url)
         .then(response => {
@@ -111,81 +55,30 @@ function getCurrentPrice(cryptocurrency){
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => findID(responseJson, cryptocurrency))
+        .then(responseJson => findID(responseJson, cryptocurrency, maxResults))
         .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
         });
-        //you can uncomment this? findID(responseJson)
-    }
-
-    
+    }  
 }
 
-function findID(responseJson, cryptocurrency){
-    //finished, just uncomment function calls
-    console.log('findID');
+function findID(responseJson, cryptocurrency, maxResults){
     for (let i = 0; i < responseJson.data.length; i++){
         if(responseJson.data[i].symbol === cryptocurrency){
             
             var cryptoName = responseJson.data[i].name;
-            console.log(`'cryptoname is:${cryptoName}`);
             var coinID = responseJson.data[i].id;
-            console.log(`coinID is:${coinID}`);
-            var price = responseJson.data[i].price_usd;
-            console.log(`price is: ${price}`);  
+            var price = responseJson.data[i].price_usd; 
         }
     }
     matchFound = true;
-    generatePriceResults(price);
-    getNews(cryptoName);
-    //getExchanges(coinID);
-    if (coinID !== undefined){
-        getQuoteCurrencies(coinID);
+    if(price !== undefined & coinID !== undefined){
+        generateCoinResults(price, cryptoName);
+        getConversion(price);
+        getMarketsAndQuotes(coinID, maxResults);
     }
 }
-/*function getExchanges(coinID){
-    //finished
-    console.log('getExchanges');
-//Get Markets for Coin (Base) endpoint
-//https://api.coinlore.net/api/coin/markets/?id=90
-    const marketsURL =  'https://api.coinlore.net/api/coin/markets/?'
-    
-    const params = {
-        id: coinID
-    };
-    const queryString = formatQueryParams(params);
-    const url = marketsURL + queryString;
-    console.log(url);
-
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(response.statusText);
-        })
-        .then(responseJson => generateExchangesResults(responseJson) 
-        //right now this json contains objects representing each market that trades
-        //this coin, but not all the available payment options
-            //, marketsArray(responseJson)
-            )
-        .catch(err => {
-            $('#js-error-message').text(`Something went wrong: ${err.message}`);
-        });
-    
-    //get exchange id for quote currencies
-}*/
-function formatQueryParams(params){
-    //finished
-    console.log('formatQueryParams');
-    const queryItems = Object.keys(params)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    return queryItems.join('&');
-}
-//---------------------------
-function getQuoteCurrencies(coinID){
-    //https://api.coinlore.net/api/coin/markets/?id=90 
-
+function getMarketsAndQuotes(coinID, maxResults){
     const marketsForCoinURL = 'https://api.coinlore.net/api/coin/markets/?';
 
     const params = {
@@ -193,7 +86,6 @@ function getQuoteCurrencies(coinID){
     };
     const queryString = formatQueryParams(params);
     const url = marketsForCoinURL + queryString;
-    console.log(url);
 
     fetch(url)
         .then(response => {
@@ -202,28 +94,46 @@ function getQuoteCurrencies(coinID){
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => generateQuoteCurrencies(responseJson))
+        .then(responseJson => generateMarketsAndQuotes(responseJson, maxResults))
         .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
         });
 }
+function getConversion(price){
+    const conversionURL = 'https://v6.exchangerate-api.com/v6/2f9264dd65a33847aae15e7d/latest/USD';
 
+    fetch(conversionURL)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => generateConversionResults(responseJson, price))
+        .catch(err => {
+            $('#js-error-message').text(`Something went wrong: ${err.message}`);
+        });
+}
+function formatQueryParams(params){
+    const queryItems = Object.keys(params)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return queryItems.join('&');
+}
 //---------------------------
 function handleSearch(){
-    console.log('handleSearch');
+    $('#search-results').show
     $('form').submit(event => {
         event.preventDefault();
-        const cryptocurrency = $('#js-symbol').val();
-        const maxResults = $('#js-max-results').val();
-        matchFound = false;
-        getCurrentPrice(cryptocurrency);
-        
-    });
-    
 
+        matchFound = false;
+
+        const cryptocurrency = $('#js-symbol').val().toUpperCase();
+        const maxResults = $('#js-max-results').val();
+
+        getCoin(cryptocurrency, maxResults);
+    });
 }
 function handleApp() {
-    console.log('handleApp');
     handleSearch();
 }
 
