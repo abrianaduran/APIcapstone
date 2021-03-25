@@ -5,11 +5,11 @@
   + it lists the quote currency 
       + (the currency that can purchase that cryptocurrency at that specific market)
    
-![screenshot](results_screenshot.png)
+![screenshot](results_screenshot.png =250x)
 ## Links  
-[live page](https://abrianaduran.github.io/Cryptocurrency/) 
+[Live Page](https://abrianaduran.github.io/Cryptocurrency/) 
 
-[repo](https://github.com/abrianaduran/Cryptocurrency)
+[Repository](https://github.com/abrianaduran/Cryptocurrency)
 
 ## Built With
 HTML/JavaScript/Jquery/CSS
