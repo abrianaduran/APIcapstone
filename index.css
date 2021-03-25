@@ -1,0 +1,88 @@
+  body {
+    font-size: 1.125rem; 
+    margin: 0;
+    background: darkgray;
+    font-family: Lexend, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  header{
+    background: gray;
+    padding: 3px;
+  }
+  h1 {
+    font-size: 3rem; 
+    padding: 10px 50px;
+  }
+  h2{
+    font-size: 1.5rem;
+  }
+  h3{
+    font-size: 1rem;
+  }
+  p {
+    padding: 10px 30px;
+  }
+  ul {
+    list-style-type: none; 
+  }
+  #js-form{
+    margin: 10px 10px;
+    padding: 10px 50px;
+  }
+  #js-form label {
+    font-size: 1.5rem;
+    display: flex;
+  }
+  .btn {
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    font-size: inherit;
+    font-family: inherit;
+  }
+  .indent {
+    margin: 10px 10px;
+    padding: 10px 50px;
+  }
+  input[type=text] {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: inherit;
+    font-family: inherit;
+  }
+  input[type=number] {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: inherit;
+    font-family: inherit;
+  }
+  @media all and (min-width: 920px){
+  .container {
+    width: 95%;
+    margin: 0 auto; 
+    max-width: 100%
+    }
+  .columns {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+  .col {
+    padding: 10px 10px;
+    margin: 10px 0;
+  }
+  .col-1{
+    width:40%;
+    padding: 25px;
+  }
+  .col-2{
+    width: 40%;
+  }
+  .btn {
+    width: 25%;
+  }
+  }

@@ -7,7 +7,7 @@ var matchFound = false;
 //generate functions
 function generateCoinResults(price, cryptoName){
     $('.price-results').empty();
-    $('.price-results').append(`<h2>The current price of ${cryptoName} is: ${price} USD</h2>`);
+    $('.price-results').append(`<h2 class="indent" >The current price of ${cryptoName} is: ${price} USD</h2>`);
 }
 function generateConversionResults(responseJson, price){
     $('#conversion-results').empty();
