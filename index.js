@@ -61,7 +61,7 @@ function getCoin(cryptocurrency, maxResults){
         });
     }  
 }
-
+//takes the responseJson and sends corresponding data to the relevant function
 function findID(responseJson, cryptocurrency, maxResults){
     for (let i = 0; i < responseJson.data.length; i++){
         if(responseJson.data[i].symbol === cryptocurrency){

@@ -13,43 +13,36 @@
         <header>
             <h1>Cryptocurrency</h1>
             <!--Search bar here-->
-            <div class="container">
-            <form id="js-form">
-                <div class="columns">
-                    <label class="col" for="cryptocurrency">Please Enter One Ticker Symbol</label>
-                    <input type="text" name="cryptocurrency" id="js-symbol" class="col" placeholder="BTC"required>
+                <div class="container">
+                    <form id="js-form">
+                        <div class="columns">
+                            <label class="col" for="cryptocurrency">Please Enter One Ticker Symbol</label>
+                            <input type="text" name="cryptocurrency" id="js-symbol" class="col" placeholder="BTC"required>
     
-                    <label class="col" for="max-results">Maximum results to return</label>
-                    <input type="number" name="max-results" id="js-max-results" class="col" value="10" min="10" max="50">
-    </div>
+                            <label class="col" for="max-results">Maximum results to return</label>
+                            <input type="number" name="max-results" id="js-max-results" class="col" value="10" min="10" max="50">
+                        </div>
                     <input class="btn" type="submit" value="Go!">
-                
-            </form>
-        </div>
+                    </form>
+                </div>
             <p>Example Ticker Symbols: ADA ATOM AVAX BCH BNB BTC CTC DOGE</p>
         </header>
-        <div class=""></div>
-        <section id="js-error-message"></section>
-        <section id="start">
-            <ul id="start-results"></ul>
-        </section>
-        
-        
-        <section id="search-results">
-            <main>
+            <section id="js-error-message"></section>
+            <section id="search-results">
+                <main>
                     <div class="price-results"></div>
-                <div class="container">
-                <Section id="js-list-results" class="column">
-                    <div class="conversion col col-1">
-                        <ul id="conversion-results"></ul>
-                    </div>
-                    <div class="markets-and-quotes col col-2">
-                        <ul id="markets-quotes-results"></ul>
-                    </div>
-                </div>
-                </Section>
-            </main> 
-        </section>
+                        <div class="container">
+                            <Section id="js-list-results" class="column">
+                                <div class="conversion col col-1">
+                                    <ul id="conversion-results"></ul>
+                                </div>
+                                <div class="markets-and-quotes col col-2">
+                                    <ul id="markets-quotes-results"></ul>
+                                </div>
+                        </div>
+                            </Section>
+                </main> 
+            </section>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
         <script src="index.js"></script>
