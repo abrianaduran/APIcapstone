@@ -6,10 +6,8 @@
       + (the currency that can purchase that cryptocurrency at that specific market)
    
 ![screenshot](results_screenshot.png)
-## Links  
+## Links
 [Live Page](https://abrianaduran.github.io/Cryptocurrency/) 
-
-[Repository](https://github.com/abrianaduran/Cryptocurrency)
 
 ## Built With
 HTML/JavaScript/Jquery/CSS
