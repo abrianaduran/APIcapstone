@@ -5,7 +5,7 @@
   + it lists the quote currency 
       + (the currency that can purchase that cryptocurrency at that specific market)
    
-![screenshot](results_screenshot.png)
+![screenshot](screenshot_1.png)
 ## Links
 [Live Page](https://abrianaduran.github.io/Cryptocurrency/) 
 
