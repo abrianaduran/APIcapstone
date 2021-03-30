@@ -5,6 +5,17 @@ var matchFound = false;
 
 //---------------------------
 //generate functions
+function generateStart() {
+    $('#start').append(`
+        <h2>Simply search for your favorite cryptocurrency's ticker symbol!</h2>
+        <h2>Discover</h2>
+        <ul>
+        <li><h3>The price of your favorite cryptocurrency in the world's eight major currencies.</h3></li>
+        <li><h3>Which markets are trading that specified cryptocurrency.</h3></li>
+        <li><h3>What currencies are acceptable payment options at each market. (Quote Currencies)</h3></li>
+        </ul>
+        `)
+}
 function generateCoinResults(price, cryptoName){
     $('.price-results').empty();
     $('.price-results').append(`<h2 class="indent" >The current price of ${cryptoName} is: ${price} USD</h2>`);
@@ -25,20 +36,22 @@ function generateConversionResults(responseJson, price){
     };
    
 }
-function generateMarketsAndQuotes(responseJson, maxResults){
+function generateMarketsAndQuotes(responseJson){
     $('#markets-quotes-results').empty();
-    $('#markets-quotes-results').append(`<h2>Markets Selling This Coin and Their Quote Currencies</h2>`);
-    for(let i = 0; i < responseJson.length & i < maxResults; i++){
-        $('#markets-quotes-results').append(
-            `<li><h3>${responseJson[i].name}: ${responseJson[i].quote}</h3></li>`);
+    $('#markets-quotes-results').append(`
+        <section>
+            <h2>Markets Selling This Coin and Their Quote Currencies</h2>`);
+                for(let i = 0; i < responseJson.length & i < 10; i++){
+                    $('#markets-quotes-results').append(
+                `<li><h3>${responseJson[i].name}: ${responseJson[i].quote}</h3></li>`);
     }
 }
 //---------------------------
 
-function getCoin(cryptocurrency, maxResults){
+function getCoin(cryptocurrency){
     const pricesURL =  'https://api.coinlore.net/api/tickers/?'
-
-    for (let i = 0; i < 5000 & matchFound === false; i += 100){
+    //i < 5000
+    for (let i = 0; i < 200 & matchFound === false; i += 100){
         
     const params = {
         start: i,
@@ -55,14 +68,14 @@ function getCoin(cryptocurrency, maxResults){
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => findID(responseJson, cryptocurrency, maxResults))
+        .then(responseJson => findID(responseJson, cryptocurrency))
         .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
         });
     }  
 }
 //takes the responseJson and sends corresponding data to the relevant function
-function findID(responseJson, cryptocurrency, maxResults){
+function findID(responseJson, cryptocurrency){
     for (let i = 0; i < responseJson.data.length; i++){
         if(responseJson.data[i].symbol === cryptocurrency){
             
@@ -75,10 +88,10 @@ function findID(responseJson, cryptocurrency, maxResults){
     if(price !== undefined & coinID !== undefined){
         generateCoinResults(price, cryptoName);
         getConversion(price);
-        getMarketsAndQuotes(coinID, maxResults);
+        getMarketsAndQuotes(coinID);
     }
 }
-function getMarketsAndQuotes(coinID, maxResults){
+function getMarketsAndQuotes(coinID){
     const marketsForCoinURL = 'https://api.coinlore.net/api/coin/markets/?';
 
     const params = {
@@ -94,7 +107,7 @@ function getMarketsAndQuotes(coinID, maxResults){
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => generateMarketsAndQuotes(responseJson, maxResults))
+        .then(responseJson => generateMarketsAndQuotes(responseJson))
         .catch(err => {
             $('#js-error-message').text(`Something went wrong: ${err.message}`);
         });
@@ -120,21 +133,44 @@ function formatQueryParams(params){
     return queryItems.join('&');
 }
 //---------------------------
+function checkForm(string) {
+        var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+        var hasNumber = /\d/;
+
+        if( string.match(format) ){
+            return true;
+        }
+        else if(hasNumber.test(string) === true){
+          return true;
+        }
+        else{
+          return false;
+        }  
+}
 function handleSearch(){
     $('#search-results').show
     $('form').submit(event => {
         event.preventDefault();
+        $('#start').empty();
+        $("#js-form-error").empty();
+        $("#js-error-message").empty();
 
         matchFound = false;
 
-        const cryptocurrency = $('#js-symbol').val().toUpperCase();
-        const maxResults = $('#js-max-results').val();
-
-        getCoin(cryptocurrency, maxResults);
+        const cryptocurrency = $('#cryptocurrency').val().toUpperCase();
+        
+        var results = checkForm(cryptocurrency);
+        
+        if(results === true) {
+            $("#js-form-error").text('Invalid Search. Do not enter numbers or special characters');
+        } else{
+            getCoin(cryptocurrency);
+        }
     });
 }
 function handleApp() {
     handleSearch();
+    generateStart();
 }
 
 $(handleApp);

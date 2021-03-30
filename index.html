@@ -1,48 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>  
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Cryptocurrency</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
-        <link href="index.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+        <link rel="stylesheet" href="index.css"  type="text/css"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"> 
-        <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend&display=swap">
     </head>
     <body>
         <header>
+            <div id="top-bar">
             <h1>Cryptocurrency</h1>
             <!--Search bar here-->
                 <div class="container">
                     <form id="js-form">
                         <div class="columns">
                             <label class="col" for="cryptocurrency">Please Enter One Ticker Symbol</label>
-                            <input type="text" name="cryptocurrency" id="js-symbol" class="col" placeholder="BTC"required>
-    
-                            <label class="col" for="max-results">Maximum results to return</label>
-                            <input type="number" name="max-results" id="js-max-results" class="col" value="10" min="10" max="50">
+                            <input type="text" name="cryptocurrency" id="cryptocurrency" class="col" placeholder="BTC" required>
                         </div>
-                    <input class="btn" type="submit" value="Go!">
+                    <input class="btn col" type="submit" value="Go!">
                     </form>
+            </div>
                 </div>
             <p>Example Ticker Symbols: ADA ATOM AVAX BCH BNB BTC CTC DOGE</p>
         </header>
+        <main>
+            <section id="start"></section>
             <section id="js-error-message"></section>
+            <section id="js-form-error"></section>
             <section id="search-results">
-                <main>
                     <div class="price-results"></div>
-                        <div class="container">
-                            <Section id="js-list-results" class="column">
-                                <div class="conversion col col-1">
+                        
+                            <Section id="js-list-results" class="group">
+                                <div class="conversion item item-1">
                                     <ul id="conversion-results"></ul>
                                 </div>
-                                <div class="markets-and-quotes col col-2">
+                                <div class="markets-and-quotes item item-2">
                                     <ul id="markets-quotes-results"></ul>
                                 </div>
-                        </div>
-                            </Section>
-                </main> 
+                            </section>
+                        
             </section>
+        </main>     
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
         <script src="index.js"></script>

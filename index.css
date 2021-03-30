@@ -1,12 +1,15 @@
+* {
+  margin: 0px 0 2%;
+}
   body {
     font-size: 1.125rem; 
     margin: 0;
-    background: darkgray;
+    background: #CBD8F5;
     font-family: Lexend, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   header{
-    background: gray;
-    padding: 3px;
+    background: #273661;
+    color: white;
   }
   h1 {
     font-size: 3rem; 
@@ -14,15 +17,23 @@
   }
   h2{
     font-size: 1.5rem;
+    padding: 2% 10%;
+    justify-self: center;
   }
   h3{
     font-size: 1rem;
+    padding: 0 5% 3%;
   }
   p {
     padding: 10px 30px;
   }
-  ul {
+  ul{
     list-style-type: none; 
+    padding: 0 0;
+  }
+  li {
+    list-style-type: none;
+    padding: 0px 10px 0 20px;
   }
   #js-form{
     margin: 10px 10px;
@@ -31,6 +42,11 @@
   #js-form label {
     font-size: 1.5rem;
     display: flex;
+  }
+  #js-form-error {
+    font-size: 2rem;
+    padding: 2% 10% 5%;
+    color: red;
   }
   .btn {
     padding: 30px;
@@ -41,6 +57,10 @@
     width: 20%;
     font-size: inherit;
     font-family: inherit;
+    background-color: #C3CCDE;
+    outline: none;
+    border: none;
+    box-shadow: 2px 2px;
   }
   .indent {
     margin: 10px 10px;
@@ -61,28 +81,67 @@
     font-family: inherit;
   }
   @media all and (min-width: 920px){
-  .container {
-    width: 95%;
-    margin: 0 auto; 
-    max-width: 100%
+    *{
+      margin: 0 0;
+      padding: 0 0;
     }
-  .columns {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-  }
-  .col {
-    padding: 10px 10px;
-    margin: 10px 0;
-  }
-  .col-1{
-    width:40%;
-    padding: 25px;
-  }
-  .col-2{
-    width: 40%;
-  }
-  .btn {
-    width: 25%;
-  }
+    header{
+      width: 100%;
+    }
+    h1{
+      padding: 0% 0%;
+      margin: 5%;
+      flex: 0.5;
+      font-size: 4rem;
+    }
+    h2 {
+      padding: 4% 10%;
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+      padding: 0 10% 3%;
+    }
+    p {
+      padding: 0 10% 5%;
+      font-size: 1.5rem;
+    }
+    div {
+      padding: 3% 5%;
+    }
+    #top-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0;
+    }
+    #js-form {
+      width: 80%;
+      margin: 0;
+      padding: 3% 3%;
+      justify-content: center;
+      flex: 1;
+    }
+    .group{
+      display:flex;
+      flex-direction: row;
+    }
+    .item{
+      flex:1;
+      margin: 2%;
+      background-color: #c2d0ee;
+      border-radius: 10px;
+    }
+    .btn {
+      height: 50%;
+      margin: 0 5%;
+      padding: 5%;
+      width: 50%;
+    }
+    ul {
+      padding: 0 0;
+    }
+    li {
+      padding: 1% 0;
+    }
+
   }
