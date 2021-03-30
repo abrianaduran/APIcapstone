@@ -7,13 +7,13 @@ var matchFound = false;
 //generate functions
 function generateStart() {
     $('#start').append(`
-        <h2>Simply search for your favorite cryptocurrency's ticker symbol!</h2>
         <h2>Discover</h2>
         <ul>
         <li><h3>The price of your favorite cryptocurrency in the world's eight major currencies.</h3></li>
         <li><h3>Which markets are trading that specified cryptocurrency.</h3></li>
         <li><h3>What currencies are acceptable payment options at each market. (Quote Currencies)</h3></li>
         </ul>
+        <h2>Simply search for your favorite cryptocurrency's ticker symbol!</h2>
         `)
 }
 function generateCoinResults(price, cryptoName){
